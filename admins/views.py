@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect
+from django.http import HttpResponse
 '''from django.db.models import Count'''
 #from .models import UserAddModel  # Assuming your model is named UserAddModel''
 
@@ -7,7 +8,7 @@ def admin_login(request):
         name = request.POST.get('name')
         password = request.POST.get('password')
         if name == 'admin' and password == 'admin':
-            return redirect('user_details')
+            return HttpResponse("Hello, world. You're at login index.")
     return render(request, 'admins/admin_login.html')
 
 '''def achart_page(request, achart_type):

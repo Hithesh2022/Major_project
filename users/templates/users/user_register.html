@@ -16,7 +16,7 @@
   {% block content %}
     <div class="container">
       <h2>User Registration</h2>
-      <form method="post">
+      <form method="post" action="{% url 'user_register' %}">
         {% csrf_token %}
         {{ form.non_field_errors }}
         
