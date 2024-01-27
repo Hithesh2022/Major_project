@@ -1,0 +1,13 @@
+# .gitignore
+
+# Ignore virtual environment
+venv/
+
+# Ignore database files
+db.sqlite3
+
+# Ignore static files
+staticfiles/
+
+# Ignore media files
+media/

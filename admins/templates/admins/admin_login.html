@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: 100% 100%;
+            border: 12px solid #dbe2e8;
+            padding: 10px;
+            border-radius: 5px;
+            margin: 10px;
+        }
+
+        table {
+            display: table;
+            border-collapse: separate;
+            border-spacing: 2px;
+            border-color: grey;
+            margin-top: 130px;
+            margin-left: 435px;
+            font-family: 'cooper'; /* Corrected font-family */
+            font-size: unset;
+            color: black;
+            border: 12px solid;
+            border-radius: 10px;
+            background-color: teal;
+        }
+
+        .register {
+            position: absolute;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            background-color: teal;
+            font-family: 'cooper'; /* Corrected font-family */
+            left: 73%;
+            color: white;
+            font-size: 16px;
+            padding: 12px 24px;
+            cursor: pointer;
+            border-radius: 5px;
+            text-align: center;
+            margin-top: 191px;
+            margin-left: -409px;
+        }
+
+        .register:hover {
+            background-color: black;
+        }
+
+        h1 {
+            font-family: 'cooper'; /* Corrected font-family */
+            text-align: center;
+            color: orangered;
+            font-size: 37px;
+            background-color: black;
+            border-radius: 10px;
+        }
+
+        .log {
+         
+            background-size: cover;
+            width: 100px;
+            height: 50px;
+        }
+
+        tbody {
+            display: table-row-group;
+            vertical-align: middle;
+            border-color: inherit;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>ADMIN</h1>
+    <form method="post">
+        {% csrf_token %}
+        <label>USERNAME:</label>
+        <input type="text" name="name" value="{{ some_value }}" class="some_class">
+        <label>PASSWORD:</label>
+        <input type="password" name="password" class="some_class">
+        <center class="message">
+            <input type="submit" class="log" name="login" value="Login">
+        </center>
+    </form>
+</body>
+
+</html>
