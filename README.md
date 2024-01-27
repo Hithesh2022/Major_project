@@ -1,7 +1,23 @@
-Step 1: Fork the Project
-Step 2: Ensure Python and Django are installed (pip install Django)
-Step 3: Migrate the default database (SQLite) [Install SQLite: https://sqlitebrowser.org/dl/]
-   Migration command: python manage.py migrate
-Step 4: Commit your changes and send a pull request
-Step 5: To run the project, use the command: python manage.py runserver
+<h2>Contributing to the Project</h2>
 
+<ol>
+    <li><strong>Fork the Project</strong></li>
+    <li>
+        <strong>Ensure Python and Django are installed</strong> (<code>pip install Django</code>)
+    </li>
+    <li>
+        <strong>Migrate the default database (SQLite)</strong> 
+        <br>
+        [Install SQLite: <a href="https://sqlitebrowser.org/dl/" target="_blank">https://sqlitebrowser.org/dl/</a>]
+        <br>
+        Migration command: <code>python manage.py migrate</code>
+    </li>
+    <li><strong>Commit your changes and send a pull request</strong></li>
+    <li>
+        <strong>To run the project, use the command:</strong>
+        <br>
+        <code>python manage.py runserver</code>
+        <br>
+        Preview is coming like this...
+    </li>
+</ol>
