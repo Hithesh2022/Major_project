@@ -3,7 +3,7 @@
 <ol>
     <li><strong>Fork the Project</strong></li>
     <li>
-        <strong>Ensure Python and Django are installed</strong> (<code>pip install Django</code>)
+        <strong>Ensure Python and Django are installed also use </strong> (<code>pip install Django or  pip install -r requirements.txt</code>)
     </li>
     <li>
         <strong>Migrate the default database (SQLite)</strong> 
