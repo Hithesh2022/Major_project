@@ -11,3 +11,5 @@ staticfiles/
 
 # Ignore media files
 media/
+
+db.sqlite3

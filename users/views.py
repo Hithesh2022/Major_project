@@ -10,6 +10,10 @@ from .forms import UserRegisterForm
 from .models import CustomUser
 
 logger = logging.getLogger(__name__)
+import asyncio
+
+
+
 def index(request):
     return HttpResponse("Hello, world. You're at the polls index.")
 
@@ -40,7 +44,9 @@ def user_login(request):
 
 @csrf_protect
 def user_register(request):
+    
     if request.method == "POST":
+        
         form = UserRegisterForm(request.POST)
         print(form.is_valid())  # Check if the form is considered valid
         if form.is_valid():
