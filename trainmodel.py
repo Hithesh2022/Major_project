@@ -28,14 +28,14 @@ col_names = np.array(["duration","protocol_type","service","flag","src_bytes",
     "dst_host_srv_diff_host_rate","dst_host_serror_rate","dst_host_srv_serror_rate",
     "dst_host_rerror_rate","dst_host_srv_rerror_rate", "class", 'difficulty level']) 
 
-train_df = pd.read_csv(r"C:\Users\hith6\OneDrive\Desktop\Major_project\Kddcup99_csv.csv", names = col_names)
+train_df = pd.read_csv(r"C:\Users\hith6\OneDrive\Desktop\Major_project\KDDTrain+.txt", names = col_names)
 train_df
 
 train_df.info()
 train_df.isnull().sum()
 
 mn.bar(train_df, color = 'yellowgreen', figsize = (20,15))
-test_df = pd.read_csv("KDDTest+.txt", names = col_names)
+test_df = pd.read_csv(r"C:\Users\hith6\OneDrive\Desktop\Major_project\KDDTrain+.txt", names = col_names)
 test_df
 test_df.info()
 test_df.isnull().sum()
@@ -158,15 +158,17 @@ plt.title('Dependency of "Services" in Attack types', fontsize = 20)
 plt.xlabel('Service Types', fontsize = 20)
 plt.legend()
 plt.show()
+
 fig = plt.figure(figsize = (10,8))
 avg_pro = pd.crosstab(train_df['difficulty level'], train_df['attack_type'])
 avg_pro.div(avg_pro.sum(1).astype(float), axis = 0).plot(kind = 'bar', stacked = True, color = ['indigo', 'gold', 'teal', 'olive', "slategrey"])
+print(avg_pro)
 
 plt.title('Dependency of "Difficulty Levels" in Attack types', fontsize = 20)
 plt.xlabel('Difficulty Levels', fontsize = 20)
 plt.legend()
 plt.show()
-train_df.head(10)
+#train_df.head(10)
 def attack_encode(value):
     if value == 'normal':
         return 0;
@@ -199,6 +201,7 @@ train_df.corr()['intrusion_code'].sort_values(ascending = False)
 category_df = train_df.select_dtypes('object')
 
 dummy_df = pd.get_dummies(category_df)
+
 
 dummy_df['intrusion_code'] = train_df['intrusion_code']
 
@@ -239,6 +242,9 @@ test_df_new.shape
 X = train_df_new.drop(columns = 'intrusion_code')
 y = train_df_new['intrusion_code']
 X.shape
+X.columns = X.columns.astype(str)
+X = X.values
+
 scaler = StandardScaler().fit(X)
 X = scaler.transform(X)
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.5, random_state=13)
@@ -258,40 +264,4 @@ ensemble_clf = VotingClassifier(estimators=[('decision_tree', dtree), ('knn', kn
 ensemble_clf.fit(X_train, y_train)
 
 # Store the trained model using joblib.dump
-joblib.dump(ensemble_clf, 'ensemble_model.joblib')
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+joblib.dump(ensemble_clf, 'ensemble_model_train1.joblib')
