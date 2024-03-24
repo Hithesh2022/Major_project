@@ -1,0 +1,29 @@
+Duration
+Wrong Fragment
+Hot
+Logged In
+Num Compromised
+Root Shell
+Num Root
+Num File Creations
+Num Access Files
+Same Service Rate
+Srv Diff Host Rate
+Dst Host Count
+Dst Host Same Src Port Rate
+Dst Host Rerror Rate
+Dst Host Serror Rate
+Protocol Type_icmp
+Protocol Type_tcp
+Protocol Type_udp
+Service_domain
+Service_http
+Service_telnet
+Flag_OTH
+Flag_REJ
+Flag_RSTO
+Flag_RSTOS0
+Flag_RSTR
+Flag_S0
+Flag_S1
+Flag_SF
