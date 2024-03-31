@@ -2,7 +2,8 @@ import socket
 import threading
 
 def send_post_request():
-    target_ip = "192.168.22.135"  # IP address of the target system
+    target_ip = "192.168.0.103"
+     # IP address of the target system
     target_port = 8000  # Port number of the target system
     csrf_token = "Por5GCd71rgRnfQJw23a08atKNx80ZsC"  # Replace with the actual CSRF token value
 
