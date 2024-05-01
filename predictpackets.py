@@ -1,71 +1,62 @@
 import pandas as pd
-import joblib
-from sklearn.preprocessing import StandardScaler  # Assuming standard scaling was used
-import warnings
+import pickle
+# from sklearn.preprocessing import StandardScaler  # Assuming standard scaling was used
+# import warnings
+from sklearn.preprocessing import StandardScaler
 
-warnings.filterwarnings("ignore")
-
-# Load the trained model (replace with your actual model filename)
-model = joblib.load('newtrainedModel.joblib')
-
-# Define sample data (replace with your actual data)
-sample_data ={'Duration': '17:35:22', 'Wrong Fragment': 1, 'Hot': '0x00', 'Logged In': 1, 'Num Compromised': '64', 'Root Shell': '569', 'Num Root': '2368', 'Num File Creations': '0', 'Num Access Files': '32', 'Same Service Rate': '388', 'Srv Diff Host Rate': '0xcced', 'Dst Host Count': '0', 'Dst Host Same Src Port Rate': '0', 'Dst Host Rerror Rate': '0', 'Dst Host Serror Rate': '0', 'Protocol Type ICMP': '0', 'Protocol Type TCP': '0', 'Protocol Type UDP': '0', 'Service Domain': '0', 'Service HTTP': '0', 'Service Telnet': '0', 'Flag OTH': '0', 'Flag REJ': '0', 'Flag RSTO': '0', 'Flag RSTOS0': '0', 'Flag RSTR': '0', 'Flag S0': '0', 'Flag S1': '0', 'Flag SF': '0'}
-
-# {
-#     'Duration': '0', 'Wrong Fragment': '0', 'Hot': '0', 'Logged In': '0', 
-#     'Num Compromised': '0', 'Root Shell': '0', 'Num Root': '0', 
-#     'Num File Creations': '0', 'Num Access Files': '0', 'Same Service Rate': '0.10', 
-#     'Srv Diff Host Rate': '0.00', 'Dst Host Count': '175', 
-#     'Dst Host Same Src Port Rate': '1.00', 'Dst Host Rerror Rate': '0.01', 
-#     'Dst Host Serror Rate': '1.00', 'Protocol Type_icmp': '0', 
-#     'Protocol Type_tcp': '1', 'Protocol Type_udp': '0', 'Service_domain': '0', 
-#     'Service_http': '0', 'Service_telnet': '0', 'Flag_OTH': '0', 'Flag_REJ': '1', 
-#     'Flag_RSTO': '0', 'Flag_RSTOS0': '0.84', 'Flag_RSTR': '0.00', 
-#     'Flag_S0': '0.00', 'Flag_S1': '0.07', 'Flag_SF': '0.00'
-# }
+with open('voting_classifier.pkl', 'rb') as f:
+    model = pickle.load(f)
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-# # Create DataFrame from sample data
-# sample_df = pd.DataFrame(sample_data)
+sample_data ={
+    'duration': '00:00:05',  # Short duration
+    'wrong_fragment': 0,  # No wrong fragment
+    'hot': '0x00',  # No hot indicators
+    'logged_in': 0,  # Not logged in
+    'num_compromised': '0',  # No compromised accounts
+    'root_shell': '0',  # No root shell access
+    'num_root': '0',  # No root accesses
+    'num_file_creations': '0',  # No file creations
+    'num_access_files': '0',  # No access files
+    'same_srv_rate': '1',  # High same service rate
+    'srv_diff_host_rate': '0',  # No difference in host rate
+    'dst_host_count': '1',  # Low destination host count
+    'Dst Host Same Src Port Rate': '1',  # Same source port rate
+    'Dst Host Rerror Rate': '0',  # No RST error rate
+    'Dst Host Serror Rate': '0',  # No SYN error rate
+    'Protocol Type ICMP': '0',  # Not ICMP
+    'Protocol Type TCP': '1',  # TCP protocol
+    'Protocol Type UDP': '0',  # Not UDP
+    'Service Domain': '0',  # Not domain service
+    'Service HTTP': '0',  # Not HTTP service
+    'Service Telnet': '0',  # Not Telnet service
+    'Flag OTH': '0',  # No other flag
+    'Flag REJ': '0',  # No reject flag
+    'Flag RSTO': '0',  # No RSTO flag
+    'Flag RSTOS0': '0',  # No RSTOS0 flag
+    'Flag RSTR': '0',  # No RSTR flag
+    'Flag S0': '0',  # No S0 flag
+    'Flag S1': '0',  # No S1 flag
+    'Flag SF': '0'  # SF flag indicating a potential DoS attack
+}
 
 sample_df =pd.DataFrame([sample_data])
 
-# Handle missing values (if any) based on your training data
-# ... (e.g., fill with mean/median for numerical features, special category for categorical)
-
-# One-hot encode categorical features (assuming this was done during training)
 sample_df_encoded = pd.get_dummies(sample_df)
 
-# Apply feature scaling if used during training (assuming StandardScaler)
-scaler = StandardScaler()  # Assuming the same scaler object used for training
-sample_df_scaled = scaler.fit_transform(sample_df_encoded)
-
-# Assuming features were arranged in a specific order during training
-# Rearrange features in sample_df_scaled to match that order (if necessary)
-# ...
+scalar=StandardScaler()
+sample_df_scaled = scalar.fit_transform(sample_df_encoded)
 
 # Make predictions using the loaded model
-predictions = model.predict(sample_df_scaled)
-print(predictions)
+predictions = model.predict(sample_df_encoded)
 
-# Decode predictions based on your class encoding scheme (e.g., dictionary mapping numerical labels to attack types)
-class_names = {0: 'Normal', 1: 'DoS', 2: 'Probe', 3: 'R2L', 4: 'U2R'}
-predicted_class = class_names[predictions[0]]
+class_encoding = {0: 'Normal', 1: 'DoS', 2: 'Probe', 3: 'R2L', 4: 'U2R'}
+predicted_class = class_encoding[predictions[0]]
+
 
 # Print the predicted attack type
+print(sample_df)
+print(sample_df_encoded)
+# print(sample_df_scaled)
+print(predictions)
 print("Predicted Attack Type:", predicted_class)
-
-# Interpretation:
-# Based on the sample data with hot connection, high file creations, high destination host

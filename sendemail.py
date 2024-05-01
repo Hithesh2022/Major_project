@@ -89,7 +89,7 @@ def send_email(sender_email, receiver_email, subject, body, smtp_server, smtp_po
 
 # Example usage
 sender_email = 'hith68616@gmail.com'
-receiver_email = 'hitheshkp100@gmail.com'
+receiver_email = 'hcprajwal9901@gmail.com'
 subject = 'Test Email'
 body = 'This is my second email.'
 smtp_server = 'smtp.gmail.com'

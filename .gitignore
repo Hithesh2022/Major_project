@@ -1,7 +1,7 @@
 # .gitignore
 
 # Ignore virtual environment
-venv/
+myenv/
 
 # Ignore database files
 db.sqlite3
