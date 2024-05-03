@@ -60,3 +60,5 @@ print(sample_df_encoded)
 # print(sample_df_scaled)
 print(predictions)
 print("Predicted Attack Type:", predicted_class)
+with open('predicted_attack.txt', 'a') as file:
+    file.write(predicted_class)
