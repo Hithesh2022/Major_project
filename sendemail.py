@@ -59,7 +59,8 @@ def send_email(sender_email, receiver_email, subject, body, smtp_server, smtp_po
     msg['Subject'] = subject
     msg['From'] = sender_email
     msg['To'] = receiver_email
-
+    with open('location_data.txt', 'r') as file:
+        body = file.readline()
     # Create the body of the message (a plain-text and an HTML version).
     text = body
     html = """\
@@ -89,7 +90,7 @@ def send_email(sender_email, receiver_email, subject, body, smtp_server, smtp_po
 
 # Example usage
 sender_email = 'hith68616@gmail.com'
-receiver_email = 'hcprajwal9901@gmail.com'
+receiver_email = 'hitheshkp100@gmail.com'
 subject = 'Test Email'
 body = 'This is my second email.'
 smtp_server = 'smtp.gmail.com'

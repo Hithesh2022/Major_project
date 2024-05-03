@@ -35,7 +35,14 @@ import pyshark
 import datetime
 def packet_callback(packet):
     extracted_data = {}
+    src_ip = packet.ip.src
+    dst_ip = packet.ip.dst
+    data_loc={}
+    data_loc['src_ip']=src_ip
+    data_loc['dst_ip']=dst_ip
 
+    # Store IP addresses in the extracted_data dictionary
+   
     try:
         duration = packet.frame_info.time
         duration = duration.replace("India Standard Time", "").strip()
@@ -207,6 +214,11 @@ def packet_callback(packet):
 
     # Print the extracted features
     print(extracted_data)
+    print(data_loc)
+    with open('extracted_data.txt', 'a') as file:
+        file.write(str(extracted_data) + '\n')
+    with open('location_data.txt', 'a') as file:
+        file.write(str(data_loc) + '\n')
 
 # Define a function to capture packets
 def capture_packets(interface='Wi-Fi 3', django_port=8000):

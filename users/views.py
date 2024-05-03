@@ -35,7 +35,7 @@ def user_login(request):
         user = authenticate(request, username=name, password=password)
         if user is not None and user.is_active:
             login(request, user)
-            return  HttpResponse("Hello, world. You're at next index.")
+            return  render(request, 'users/user_view.html')
         else:
             messages.error(request, 'Username or password does not match')
             return redirect('user_login')

@@ -1,0 +1,82 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>My E-Commerce Site</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'styles1.css' %}">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <!-- Header content -->
+    </header>
+
+    <!-- Products Section -->
+    <section id="products" class="container">
+        <h2>Our Products</h2>
+        <div class="product-list">
+            <!-- Product template -->
+            <template id="product-template">
+                <div class="product">
+                    <img src="" alt="">
+                    <h3></h3>
+                    <p>$</p>
+                    <form action="#" method="post">
+                        {% csrf_token %}
+                        <button type="submit">Add to Cart</button>
+                    </form>
+                </div>
+            </template>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="container">
+        <!-- Contact content -->
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <!-- Footer content -->
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        fetch('https://dummyjson.com/products')
+            .then(response => response.json())
+            .then(data => {
+                const productList = document.querySelector('.product-list');
+
+                // Check if data is an array
+                if (Array.isArray(data.products)) {
+                    // If it's an array, iterate over each product
+                    data.products.forEach(product => {
+                        addProduct(product, productList);
+                    });
+                } else {
+                    console.error('Invalid products data:', data);
+                }
+            })
+            .catch(error => console.error('Error fetching products:', error));
+
+        function addProduct(product, productList) {
+            const productTemplate = document.getElementById('product-template');
+            const productClone = productTemplate.content.cloneNode(true);
+            const productDiv = productClone.querySelector('.product');
+            const productName = productDiv.querySelector('h3');
+            const productPrice = productDiv.querySelector('p');
+            const productImg = productDiv.querySelector('img');
+            const productForm = productDiv.querySelector('form');
+
+            productName.textContent = product.title;
+            productPrice.textContent = '$' + product.price;
+            productImg.src = product.thumbnail;
+            productImg.alt = product.title;
+            productForm.action = '#'; // Change this to the appropriate URL for adding to cart
+            productList.appendChild(productClone);
+            productDiv.style.display = 'block';
+        }
+    </script>
+</body>
+</html>

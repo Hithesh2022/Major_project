@@ -1,5 +1,5 @@
 <!-- user/register_user.html -->
-
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -7,12 +7,10 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>User Registration</title>
-  <!-- Add any additional head elements or stylesheets here -->
+  <link rel="stylesheet" type="text/css" href="{% static 'styles.css' %}">
 </head>
 
 <body>
-  
-
   {% block content %}
     <div class="container">
       <h2>User Registration</h2>
