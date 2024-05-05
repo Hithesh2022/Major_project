@@ -1,0 +1,68 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>File Upload</title>
+  <style>
+    /* Your CSS styles here */
+   
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f0f0f0;
+    }
+    .container {
+      max-width: 600px;
+      margin: 50px auto;
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    h1 {
+      text-align: center;
+    }
+    .upload-form {
+      text-align: center;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>File Upload</h1>
+
+    <form class="upload-form" id="uploadForm" action="{% url 'admin_upload' %}" method="post" enctype="multipart/form-data">
+      {% csrf_token %}
+      <input type="file" name="file" id="fileInput" accept=".csv">
+      <button type="submit">Upload File</button>
+    </form>
+  </div>
+
+  <script>
+    function uploadFile() {
+      var formData = new FormData();
+      var fileInput = document.getElementById('fileInput');
+      formData.append('file', fileInput.files[0]);
+
+      var xhr = new XMLHttpRequest();
+      xhr.open('POST', 'upload/', true);
+      xhr.setRequestHeader('X-CSRFToken', '{{ csrf_token }}');
+
+      xhr.onload = function () {
+        if (xhr.status === 200) {
+          // Redirect to the admin_upload.html page upon successful upload
+          window.location.href = '/admin_upload/';
+        } else {
+          alert('Error uploading file.');
+        }
+      };
+
+      xhr.send(formData);
+    }
+  </script>
+</body>
+</html>

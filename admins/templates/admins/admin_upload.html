@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>File Upload Successful</title>
+  <style>
+    /* CSS styles */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f0f0f0;
+    }
+    .container {
+      max-width: 800px;
+      margin: 50px auto;
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      text-align: center;
+    }
+    h1 {
+      text-align: center;
+    }
+    .loading {
+      text-align: center;
+      margin-top: 20px;
+    }
+    #accuracyDisplay, #gallery {
+      display: none;
+    }
+    /* Additional styles for images */
+    .gallery {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.gallery img {
+  margin: 5px;
+  /* Set max-width to 100% to prevent images from shrinking */
+  max-width: 100%;
+  /* Set height to auto for maintaining aspect ratio */
+  height: auto;
+}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>File Upload Successful</h1>
+    <p>The files were successfully uploaded and processed.</p>
+
+    <!-- Loading message for accuracy -->
+    <div id="loadingAccuracy" class="loading">
+      <p>Loading Accuracy...</p>
+    </div>
+
+    <!-- Accuracy display -->
+    <div id="accuracyDisplay">
+      <p>Accuracy: <span id="accuracyValue"></span>%</p>
+    </div>
+
+    <!-- Loading message for images -->
+    <div id="loadingImages" class="loading">
+      <p>Loading Images...</p>
+    </div>
+
+    <!-- Gallery of uploaded images -->
+    <div id="gallery" class="gallery">
+        {% for image in image_list %}
+        <img data-src="{{ image }}" alt="Uploaded Image">
+        {% endfor %}
+    </div>
+    
+      
+
+  <script>
+    // JavaScript to display accuracy after 10 seconds
+    setTimeout(function() {
+      var loadingAccuracy = document.getElementById('loadingAccuracy');
+      var accuracyDisplay = document.getElementById('accuracyDisplay');
+      var accuracyValue = {{ accuracy }}.toFixed(2); // Format accuracy to two decimal places
+
+      // Hide loading message for accuracy
+      loadingAccuracy.style.display = 'none';
+
+      // Show accuracy display
+      accuracyDisplay.style.display = 'block';
+      document.getElementById('accuracyValue').textContent = accuracyValue; // Set accuracy value
+    }, 15000); // 10 seconds delay
+
+    // JavaScript to load images after 14 seconds
+    setTimeout(function() {
+      var loadingImages = document.getElementById('loadingImages');
+      var gallery = document.getElementById('gallery');
+      var images = document.querySelectorAll('.gallery img');
+
+      // Hide loading message for images
+      loadingImages.style.display = 'none';
+
+      // Set the src attribute of each image to trigger loading
+      images.forEach(function(image) {
+        image.setAttribute('src', image.getAttribute('data-src'));
+      });
+
+      // Show the gallery after images are loaded
+      gallery.style.display = 'flex';
+    }, 20000); // 14 seconds delay
+  </script>
+</body>
+</html>
